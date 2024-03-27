@@ -56,33 +56,37 @@ const AddRoom = () => {
 
     return (
         <>
-            <section className="container, mt-5 mb-5">
+            <section className="container mt-5 mb-5">
 
                 <div className="row justify-contant-center">
                     <div className="col-md-8 col-lg-6">
                         <h2 className="mt-5 mb-2">Add a New Room</h2>
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} >
                             <div className="mb-3">
                                 <label htmlFor="roomType" className="form-label"> 
                                 Room Type
                                 </label>
-                                <div>
+                                <div >
                                     <RoomTypeSelector handleRoomInputChange={handleRoomInputChange} newRoom={newRoom}/>
                                 </div>
                             </div>
 
                             <div className="mb-3">
-                                <label htmlFor="roomTyperoomPrive" className="form-label"> 
+                                <label htmlFor="roomPrice" className="form-label"> 
                                 Room Price
                                 </label>
-                                <input className="form-control"
+                                
+                                <input 
+                                className="form-control"
                                 type="number" 
-                                required id="roomPrice" 
+                                required 
+                                id="roomPrice" 
                                 name="roomPrice" 
                                 value={newRoom.roomPrice} 
                                 onChange={handleRoomInputChange}
                                 />
+
                             </div>
 
                             <div className="mb-3">

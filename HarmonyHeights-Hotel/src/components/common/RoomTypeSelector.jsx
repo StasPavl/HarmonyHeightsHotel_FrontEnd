@@ -32,6 +32,7 @@ const RoomTypeSelector = ({handleRoomInputChange, newRoom}) => {
     {roomTypes.length > 0 && (
         <div>
             <select id='roomType'
+            className="form-select"
             name='roomType'
             value={newRoom.roomType}
             onChange={(e) => {
@@ -41,7 +42,7 @@ const RoomTypeSelector = ({handleRoomInputChange, newRoom}) => {
                     handleRoomInputChange(e)
                 }
             }}>
-                <option value={""}>Select a room type</option>
+                <option value={""}>Select a Room Type</option>
                 <option value={"Add New"}> Add New</option>
                 {roomTypes.map((type, index) => (
                     <option key={index}
