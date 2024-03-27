@@ -15,17 +15,23 @@ const AddRoom = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
     const handleRoomInputChange = (e) => {
-        const name = e.target.name
-        let value = e.target.value
+        const { name, value } = e.target;
+        let parsedValue;
+    
         if (name === "roomPrice") {
-            if (!isNaN(value)) {
-                value.parseInt(value)
-            } else {
-                value = ""
+            parsedValue = parseInt(value, 10);
+    
+            if (isNaN(parsedValue)) {
+                // Handle parsing error (e.g., set to default value or display error message)
+                parsedValue = 0; // Set a default value (e.g., 0) or handle the error as needed
             }
+        } else {
+            parsedValue = value;
         }
-        setNewRoom({ ...newRoom, [name]: value })
-    }
+    
+        setNewRoom({ ...newRoom, [name]: parsedValue });
+    };
+    
 
 
     const handleImageChange = (e) => {
@@ -79,7 +85,7 @@ const AddRoom = () => {
                                 
                                 <input 
                                 className="form-control"
-                                type="number" 
+                                type="number"
                                 required 
                                 id="roomPrice" 
                                 name="roomPrice" 
