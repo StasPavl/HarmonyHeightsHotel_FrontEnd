@@ -8,6 +8,8 @@ const AddRoom = () => {
         photo: null,
         roomType: "",
         roomPrice: "",
+
+        
     })
 
     const [imagePreview, setImagePreview] = useState("")
