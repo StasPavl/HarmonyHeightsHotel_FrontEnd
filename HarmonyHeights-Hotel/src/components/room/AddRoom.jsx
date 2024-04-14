@@ -17,22 +17,17 @@ const AddRoom = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
     const handleRoomInputChange = (e) => {
-        const { name, value } = e.target;
-        let parsedValue;
-    
-        if (name === "roomPrice") {
-            parsedValue = parseInt(value, 10);
-    
-            if (isNaN(parsedValue)) {
-                // Handle parsing error (e.g., set to default value or display error message)
-                parsedValue = 0; // Set a default value (e.g., 0) or handle the error as needed
-            }
-        } else {
-            parsedValue = value;
-        }
-    
-        setNewRoom({ ...newRoom, [name]: parsedValue });
-    };
+		const name = e.target.name
+		let value = e.target.value
+		if (name === "roomPrice") {
+			if (!isNaN(value)) {
+				value = parseInt(value)
+			} else {
+				value = ""
+			}
+		}
+		setNewRoom({ ...newRoom, [name]: value })
+	}
     
 
 
@@ -43,32 +38,45 @@ const AddRoom = () => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const success = await addRoom(newRoom.photo, newRoom.roomType, newRoom.roomPrice)
-            if (success !== undefined) {
-                setSuccessMessage("A new room was added to database")
-                setNewRoom({ photo: null, roomType: "", roomPrice: "" })
-                setImagePreview("")
-                setErrorMessage("")
-            } else {
-                setErrorMessage("Error adding room")
-            }
-
-        } catch (error) {
-            setErrorMessage(error.message)
-        }
-    }
+		e.preventDefault()
+		try {
+			const success = await addRoom(newRoom.photo, newRoom.roomType, newRoom.roomPrice)
+			if (success !== undefined) {
+				setSuccessMessage("A new room was  added successfully !")
+				setNewRoom({ photo: null, roomType: "", roomPrice: "" })
+				setImagePreview("")
+				setErrorMessage("")
+			} else {
+				setErrorMessage("Error adding new room")
+			}
+		} catch (error) {
+			setErrorMessage(error.message)
+		}
+		setTimeout(() => {
+			setSuccessMessage("")
+			setErrorMessage("")
+		}, 3000)
+	}
 
 
 
     return (
         <>
-            <section className="container mt-5 mb-5">
+            <section className="container mt-5 mb-5" >
 
                 <div className="row justify-contant-center">
                     <div className="col-md-8 col-lg-6">
                         <h2 className="mt-5 mb-2">Add a New Room</h2>
+                        {successMessage && (
+                            <div className="alert alert-success fade show">
+                                {successMessage}
+                            </div>
+                        )}
+                        {errorMessage && (
+                            <div className="alert alert-danger fade show">
+                                {errorMessage}
+                            </div>
+                        )}
 
                         <form onSubmit={handleSubmit} >
                             <div className="mb-3">
